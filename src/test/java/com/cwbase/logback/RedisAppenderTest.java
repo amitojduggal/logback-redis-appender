@@ -115,7 +115,7 @@ public class RedisAppenderTest {
 	@Before
 	public void setUp() {
 		System.out.println("Before Test, clearing Redis");
-		JedisPool pool = new JedisPool("localhost");
+		JedisPool pool = new JedisPool("redis://localhost:6379");
 		redis = pool.getResource();
 		// clear the redis list first
 		redis.ltrim(key, 1, 0);
