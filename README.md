@@ -3,6 +3,9 @@
 
 # Usage
 
+1.1.5: Spring Boot 2.x 
+1.1.6 and Above: Spring Boot 3.x
+
 Now in Maven Central Repository:
 
 ```xml
@@ -18,16 +21,16 @@ Now in Maven Central Repository:
 ## Redis Related (RedisAppender Attributes)
 
 * **key**: (required) Redis Key to append the logs to
-* **host**: (optional, default: localhost) Redis Server Host 
-* **port**: (optional, default: 6379) Redis Server Port 
-* **timeout**: (optional, default: 2000) Redis connection timeout 
-* **password**: (optional, default: no password) Redis connection password 
-* **database**: (optional, default: 0) Redis database number 
+* **host**: (optional, default: localhost) Redis Server Host
+* **port**: (optional, default: 6379) Redis Server Port
+* **timeout**: (optional, default: 2000) Redis connection timeout
+* **password**: (optional, default: no password) Redis connection password
+* **database**: (optional, default: 0) Redis database number
 
 ## Event Related (JSONEventLayout Attributes)
 
 * **source**: (optional) Logstash Event [source] value
-* **sourceHost**: (optional, default: current hostname) Logstash Event [host] value 
+* **sourceHost**: (optional, default: current hostname) Logstash Event [host] value
 * **sourcePath**: (optional) Logstash Event [path] value
 * **tags**: (optional) Comma-separated strings of Logstash [tags]
 * **type**: (optional) Logstash Event [type] value
@@ -36,11 +39,11 @@ Since 1.1.1 these fields support MDC property resolution by @{varname}.
 
 ## Logback/Java Specific (JSONEventLayout Attributes)
 
-* **mdc**: (optional, default: false) Set to true if you want to log MDC properties 
-* **location**: (optional, default: false) Set to true if you want to log the source file 
+* **mdc**: (optional, default: false) Set to true if you want to log MDC properties
+* **location**: (optional, default: false) Set to true if you want to log the source file
 * **callerStackIndex**: (optional, default: 0) As location is determined by call stack, if you use some
-  log wrapper, the location will always be the wrapper instead. 
-  Set it to 1 or higher to specify the particular call stack level 
+  log wrapper, the location will always be the wrapper instead.
+  Set it to 1 or higher to specify the particular call stack level
 
 # Note
 ## Custom Layout
@@ -51,10 +54,10 @@ own JSONEventLayout, see the sample configuration below.  (Since version 1.1.5)
 ## Logging Asynchronously
 
 As this appender would synchronously log to the Redis server, this may cause the logging thread
-to be hanged on some error conditions (network timeout or so).  One resolution would be using the 
-[AsyncAppender](http://logback.qos.ch/manual/appenders.html#AsyncAppender) provided by standard 
+to be hanged on some error conditions (network timeout or so).  One resolution would be using the
+[AsyncAppender](http://logback.qos.ch/manual/appenders.html#AsyncAppender) provided by standard
 logback. Please refer to the below example configurations.
-(Thanks GuiSim for pointing this out) 
+(Thanks GuiSim for pointing this out)
 
 ## Default values for MDC properties
 MDC properties can be configured with default values by using the `:-` signifier. For example: `@{varname:-foo}` will result in `foo` if the `varname` property is not defined.
@@ -129,6 +132,10 @@ MDC properties can be configured with default values by using the `:-` signifier
 
 # ChangeLogs
 
+## Version 1.1.6 -> 1.1.5
+
+* Upgraded binaries to work with Spring Boot 3.x
+
 ## Version 1.1.5 -> 1.1.4
 
 * Ability to set custom Layout (Thanks brynjargles suggestion)
@@ -152,7 +159,7 @@ MDC properties can be configured with default values by using the `:-` signifier
 * https://github.com/elasticsearch/logstash/blob/master/lib/logstash/event.rb
 
 Logstash has re-defined its JSON message format as
-[An event is simply a tuple of (timestamp, data).] 
+[An event is simply a tuple of (timestamp, data).]
 
      {
        "@timestamp": "2013-02-09T20:39:26.234Z",
@@ -164,5 +171,3 @@ This implies that the @-prefixed keys is not longer valid and allows a more flex
 The original mapping can be found at oldlogstashjson.rb file.
 
 There is one unmapped field "@source".  I will turn that into "source" field anyways.
-
-
